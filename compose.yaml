@@ -1,0 +1,15 @@
+services:
+  anvaya:
+    build: .
+    image: anvaya-voice-rag:phase7
+    ports:
+      - "127.0.0.1:8000:8000"
+    env_file:
+      - .env
+    environment:
+      HH_RAG_DEVICE: cpu
+      HH_RAG_API_TOKEN: ${HH_RAG_API_TOKEN:-}
+    volumes:
+      - ./cache:/app/cache:ro
+      - ./data:/app/data:ro
+    restart: unless-stopped
