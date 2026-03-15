@@ -1,0 +1,112 @@
+experiment:
+  name: hh-goa-msmarco-xi
+  seed: 20260818
+
+dataset:
+  repository: ai4bharat/MSMARCO-XI
+  revision: null  # resolved to and recorded as an immutable Hub commit SHA
+  language: all  # balanced multilingual study across every language file in this Hub revision
+  dev_source_split: train
+  test_source_split: validation
+  dev_queries: 1000
+  test_queries: 1000
+  sampling_acceptance_rate: 0.20
+  max_rows_scanned_multiplier: 20
+  passage_field: Translated_passages
+  query_field: query
+  output_dir: data/processed
+  download_workers: 8
+  retain_raw_parquet: true  # full raw snapshot is retained and verified under cache/huggingface/full
+
+cache:
+  root: cache
+  huggingface: cache/huggingface
+  models: cache/models
+  embeddings: cache/embeddings
+  indexes: cache/indexes
+
+retrieval:
+  normalize_embeddings: true
+  normalization_method: float32_l2_v1
+  top_k: 10
+  search_oversample: 20
+  warmup_queries: 20
+  baseline_chunking:
+    strategy: fixed_words
+    size: 128
+    overlap: 0
+
+embedding_ablation:
+  split: dev
+  batch_size: 32
+  indicbert_batch_size: 4
+  max_sequence_length: 512
+  dtype: bfloat16
+  models:
+    - BAAI/bge-m3
+    - intfloat/multilingual-e5-base
+    - Alibaba-NLP/gte-multilingual-base
+    - jinaai/jina-embeddings-v3
+  selection_metrics:
+    - ndcg_at_10
+    - mrr_at_10
+    - recall_at_10
+
+chunking_ablation:
+  split: dev
+  batch_size: 32
+  strategies:
+    - name: fixed_size
+      strategy: fixed_words
+      size: 128
+      overlap: 0
+    - name: overlapping
+      strategy: fixed_words
+      size: 128
+      overlap: 32
+    - name: sentence_based
+      strategy: sentence
+      max_words: 128
+    - name: semantic
+      strategy: semantic
+      min_words: 40
+      max_words: 160
+      similarity_threshold: 0.65
+    - name: parent_child
+      strategy: parent_child
+      child_size: 64
+      child_overlap: 16
+      include_parent: true
+  selection_metrics:
+    - ndcg_at_10
+    - mrr_at_10
+    - recall_at_10
+
+index_ablation:
+  split: dev
+  backends:
+    - name: faiss_flat_ip
+      engine: faiss
+      index_type: flat_ip
+    - name: faiss_hnsw
+      engine: faiss
+      index_type: hnsw
+      m: 32
+      ef_construction: 200
+      ef_search: 128
+    - name: faiss_ivf_flat
+      engine: faiss
+      index_type: ivf_flat
+      nlist: 128
+      nprobe: 16
+    - name: faiss_ivf_pq
+      engine: faiss
+      index_type: ivf_pq
+      nlist: 128
+      nprobe: 16
+      pq_m: 16
+      pq_nbits: 8
+  selection_metrics:
+    - ndcg_at_10
+    - mrr_at_10
+    - recall_at_10
