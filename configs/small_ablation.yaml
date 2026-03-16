@@ -1,0 +1,63 @@
+experiment:
+  name: hh-goa-small-embedding-index-ablation
+  seed: 20260818
+
+dataset:
+  output_dir: data/processed
+  dev_queries: 1000
+  test_queries: 1000
+
+cache:
+  models: cache/models
+  embeddings: cache/embeddings
+  indexes: cache/indexes
+
+retrieval:
+  normalize_embeddings: true
+  normalization_method: float32_l2_v1
+  top_k: 10
+  search_oversample: 20
+  warmup_queries: 20
+
+small_ablation:
+  split: dev
+  batch_size: 32
+  max_sequence_length: 512
+  device: auto
+  dtype: bfloat16
+  chunking:
+    strategy: fixed_words
+    size: 128
+    overlap: 0
+  models:
+    - BAAI/bge-m3
+    - intfloat/multilingual-e5-small
+  index_backends:
+    - name: faiss_flat_ip
+      engine: faiss
+      index_type: flat_ip
+    - name: faiss_flat_ip2
+      engine: faiss
+      index_type: flat_l2
+    - name: faiss_hnsw
+      engine: faiss
+      index_type: hnsw
+      m: 32
+      ef_construction: 200
+      ef_search: 128
+    - name: faiss_ivf_flat
+      engine: faiss
+      index_type: ivf_flat
+      nlist: 128
+      nprobe: 16
+    - name: faiss_ivf_pq
+      engine: faiss
+      index_type: ivf_pq
+      nlist: 128
+      nprobe: 16
+      pq_m: 16
+      pq_nbits: 8
+  selection_metrics:
+    - ndcg_at_10
+    - mrr_at_10
+    - recall_at_10
