@@ -1,0 +1,20 @@
+engine_id,case_id,correctness_1_to_5,relevance_1_to_5,faithfulness_1_to_5,notes,reviewer_type
+extractive_qa,normal-001,5,5,5,Exact four-country span.,codex_qualitative_evaluation_not_ground_truth
+extractive_qa,normal-002,4,5,5,Correct national average; omits the reference caveat about price variation.,codex_qualitative_evaluation_not_ground_truth
+extractive_qa,normal-003,5,5,5,Exact concise answer.,codex_qualitative_evaluation_not_ground_truth
+extractive_qa,normal-004,5,5,5,Exact county answer.,codex_qualitative_evaluation_not_ground_truth
+extractive_qa,paraphrase-001,5,5,5,Exact four-country span from a retrieved supporting source.,codex_qualitative_evaluation_not_ground_truth
+extractive_qa,paraphrase-002,1,1,5,Faithfully copies a retrieved distractor but gives the wrong cost for the question.,codex_qualitative_evaluation_not_ground_truth
+extractive_qa,paraphrase-003,5,5,5,Correct county span.,codex_qualitative_evaluation_not_ground_truth
+extractive_qa,paraphrase-004,3,4,5,Relevant supported fee but misses the broader 0-10 range and location dependence.,codex_qualitative_evaluation_not_ground_truth
+extractive_qa,noisy-001,5,5,5,Correct county name.,codex_qualitative_evaluation_not_ground_truth
+extractive_qa,noisy-002,5,5,5,Exact concise answer.,codex_qualitative_evaluation_not_ground_truth
+extractive_qa,noisy-003,5,5,5,Contains both required prices.,codex_qualitative_evaluation_not_ground_truth
+extractive_qa,noisy-004,3,4,5,Supported professional range but the DIY lower bound was truncated.,codex_qualitative_evaluation_not_ground_truth
+qwen3_0_6b,normal-001,5,5,5,Correct complete list after citation parsing.,codex_qualitative_evaluation_not_ground_truth
+qwen3_0_6b,normal-003,2,4,5,Says acid but omits the required carbonic qualifier.,codex_qualitative_evaluation_not_ground_truth
+qwen3_0_6b,normal-004,1,2,5,Says Goldsmith is a Texas city but does not answer which county.,codex_qualitative_evaluation_not_ground_truth
+qwen3_0_6b,paraphrase-001,5,5,5,Correct complete list after citation parsing.,codex_qualitative_evaluation_not_ground_truth
+qwen3_0_6b,paraphrase-003,1,2,5,Restates city and state but omits the requested county.,codex_qualitative_evaluation_not_ground_truth
+qwen3_0_6b,noisy-001,5,5,5,Correct complete county answer.,codex_qualitative_evaluation_not_ground_truth
+qwen3_0_6b,noisy-002,5,5,5,Correct carbonic-acid answer.,codex_qualitative_evaluation_not_ground_truth
