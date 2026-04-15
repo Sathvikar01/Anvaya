@@ -1,0 +1,84 @@
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[project]
+name = "hh-goa-retrieval-ablation"
+version = "0.1.0"
+description = "Leakage-safe retrieval ablations for the HH Goa Voice-RAG project"
+readme = "README.md"
+requires-python = ">=3.11,<3.15"
+dependencies = [
+  "datasets>=4.0",
+  "huggingface-hub>=0.30",
+  "numpy>=2.0",
+  "pandas>=2.2",
+  "psutil>=6.0",
+  "pyarrow>=18.0",
+  "PyYAML>=6.0",
+  "rich>=13.9",
+]
+
+[project.optional-dependencies]
+experiment = [
+  "chromadb>=1.0",
+  "einops>=0.8",
+  "faiss-cpu>=1.10",
+  "qdrant-client>=1.14",
+  "sentence-transformers>=4.0",
+  "spacy>=3.8",
+  "torch>=2.6",
+  "transformers>=4.51",
+]
+stt = [
+  "python-dotenv>=1.2",
+  "sarvamai==0.1.30",
+  "sounddevice>=0.5,<0.6",
+]
+generation = [
+  "h2>=4.2,<5",
+  "httpx>=0.28,<1",
+  "python-dotenv>=1.2",
+]
+app = [
+  "faiss-cpu>=1.10",
+  "h2>=4.2,<5",
+  "httpx>=0.28,<1",
+  "indic-transliteration>=2.3",
+  "python-dotenv>=1.2",
+  "sarvamai==0.1.30",
+  "sentence-transformers>=4.0",
+  "torch>=2.6",
+  "transformers>=4.51",
+]
+web = [
+  "fastapi>=0.115,<1",
+  "python-multipart>=0.0.20,<1",
+  "uvicorn[standard]>=0.34,<1",
+]
+orchestration = [
+  "langgraph>=0.6,<2",
+]
+dev = [
+  "pytest>=8.3",
+  "ruff>=0.11",
+]
+
+[project.scripts]
+hh-goa-ablate = "hh_goa_rag.cli:main"
+hh-goa-demo = "hh_goa_rag.web:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/hh_goa_rag"]
+
+[tool.pytest.ini_options]
+addopts = "-q"
+testpaths = ["tests"]
+pythonpath = ["src", "."]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
