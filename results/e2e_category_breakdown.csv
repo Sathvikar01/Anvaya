@@ -1,0 +1,7 @@
+﻿classification,status,category,planned_cases,measured_cases,pipeline_success_rate,route_accuracy,citation_validity_rate,refusal_correctness_rate,mean_stt_wer,retrieval_degradation_rate,failure_rate,total_p50_ms,total_p70_ms,total_p95_ms,total_p100_ms,under_200_ms_percent
+PENDING,PENDING_REAL_RECORDINGS,answerable,4,0,,,,,,,,,,,,
+PENDING,PENDING_REAL_RECORDINGS,paraphrased,4,0,,,,,,,,,,,,
+PENDING,PENDING_REAL_RECORDINGS,noisy_speech,4,0,,,,,,,,,,,,
+PENDING,PENDING_REAL_RECORDINGS,insufficient_context,4,0,,,,,,,,,,,,
+PENDING,PENDING_REAL_RECORDINGS,off_topic,4,0,,,,,,,,,,,,
+PENDING,PENDING_REAL_RECORDINGS,unsafe,4,0,,,,,,,,,,,,
