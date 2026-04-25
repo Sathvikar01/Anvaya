@@ -1,0 +1,7 @@
+﻿classification,status,scope,stage,cases,p50_ms,p70_ms,p95_ms,p100_ms,mean_ms,mean_contribution_percent,requests_under_200_ms_percent
+PENDING,PENDING_REAL_RECORDINGS,overall,stt,0,,,,,,,
+PENDING,PENDING_REAL_RECORDINGS,overall,query_embedding,0,,,,,,,
+PENDING,PENDING_REAL_RECORDINGS,overall,vector_search,0,,,,,,,
+PENDING,PENDING_REAL_RECORDINGS,overall,guardrails,0,,,,,,,
+PENDING,PENDING_REAL_RECORDINGS,overall,generation,0,,,,,,,
+PENDING,PENDING_REAL_RECORDINGS,overall,total_e2e,0,,,,,,,
