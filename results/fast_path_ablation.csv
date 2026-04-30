@@ -1,0 +1,4 @@
+configuration,measurement_label,cases,completion_rate,extractive_route_rate,generator_fallback_rate,answer_p50_ms,answer_p70_ms,answer_p95_ms,answer_p100_ms,correctness_1_to_5,relevance_1_to_5,faithfulness_1_to_5,quality_method,grounding_validity_rate,mean_reference_token_f1,citation_validity_rate,citation_relevance_rate
+current_generative_rag,ABLATION (historical frozen generation run),12,1.0,0,1,1579.87925,1966.0583800000002,7009.204694999993,11849.2889,4.666666666666667,4.666666666666667,5.0,codex_blinded_qualitative_review,1.0,,,
+extractive_high_confidence,ABLATION,12,0.08333333333333333,0.08333333333333333,0.0,0.0891,0.0891,0.0891,0.0891,,,,deterministic verbatim/citation/reference-token proxies,1.0,0.411764705882353,1.0,1.0
+hybrid_router,ABLATION,12,1.0,0.08333333333333333,0.9166666666666666,1353.6228,1882.14255,7009.301854999993,11849.366699999999,,,,deterministic verbatim/citation/reference-token proxies,1.0,0.5002640102374732,1.0,0.75
