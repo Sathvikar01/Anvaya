@@ -1,0 +1,20 @@
+{
+  "provider": "gemini",
+  "model": "gemini-3.5-flash-lite",
+  "device": "cuda",
+  "cases": 24,
+  "startup_model_index_ms": 2026.5131,
+  "warmup_ms": 285.2879,
+  "total_startup_ms": 2311.801,
+  "route_accuracy": 1.0,
+  "pipeline_success_rate": 1.0,
+  "grounding_validity_rate": 0.6666666666666666,
+  "citation_validity_rate": 1.0,
+  "generation_calls": 12,
+  "under_200_ms_percent": 50.0,
+  "stack": {
+    "embedding_model": "BAAI/bge-m3",
+    "index": "faiss_hnsw",
+    "chunking": "sentence_based"
+  }
+}
