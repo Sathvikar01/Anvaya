@@ -1,0 +1,20 @@
+{
+  "provider": "gemini",
+  "model": "gemini-3.7-flash",
+  "device": "cuda",
+  "cases": 24,
+  "startup_model_index_ms": 1983.6887,
+  "warmup_ms": 279.8524,
+  "total_startup_ms": 2263.5411,
+  "route_accuracy": 0.5416666666666666,
+  "pipeline_success_rate": 0.5416666666666666,
+  "grounding_validity_rate": 0.20833333333333334,
+  "citation_validity_rate": 0.5416666666666666,
+  "generation_calls": 12,
+  "under_200_ms_percent": 66.66666666666666,
+  "stack": {
+    "embedding_model": "BAAI/bge-m3",
+    "index": "faiss_hnsw",
+    "chunking": "sentence_based"
+  }
+}
