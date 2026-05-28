@@ -1,0 +1,9 @@
+﻿top_score_threshold,consistency_rescue_floor,top_two_max_gap,top_to_fifth_min_spread,cases,routing_accuracy,answerable_acceptance_rate,insufficient_detection_rate,false_refusal_count,false_refusal_rate,false_answer_count,false_answer_rate,weighted_error_cost,selected
+0.6,0.64,0.005,0.12,16,0.9375,1.0,0.75,0,0.0,1,0.25,5,False
+0.62,0.64,0.005,0.12,16,0.9375,1.0,0.75,0,0.0,1,0.25,5,False
+0.64,0.64,0.005,0.12,16,0.9375,1.0,0.75,0,0.0,1,0.25,5,False
+0.65,0.64,0.005,0.12,16,0.9375,1.0,0.75,0,0.0,1,0.25,5,False
+0.67,0.64,0.005,0.12,16,1.0,1.0,1.0,0,0.0,0,0.0,0,True
+0.7,0.64,0.005,0.12,16,1.0,1.0,1.0,0,0.0,0,0.0,0,False
+0.72,0.64,0.005,0.12,16,1.0,1.0,1.0,0,0.0,0,0.0,0,False
+0.74,0.64,0.005,0.12,16,0.9375,0.9166666666666666,1.0,1,0.08333333333333333,0,0.0,1,False
