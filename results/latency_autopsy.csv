@@ -1,0 +1,152 @@
+measurement_label,component,stage,configuration,samples,p50_ms,p70_ms,p95_ms,p100_ms,mean_ms,notes
+ABLATION,startup,embedding_model_and_index_initialization,cold_process,1,1991.3246,1991.3246,1991.3246,1991.3246,1991.3246,
+ABLATION,retrieval,query_embedding,cold,1,272.2837,272.2837,272.2837,272.2837,272.2837,
+ABLATION,retrieval,faiss_search,cold,1,0.705,0.705,0.705,0.705,0.705,
+ABLATION,retrieval,evidence_guardrail,cold,1,0.0142,0.0142,0.0142,0.0142,0.0142,
+ABLATION,retrieval,query_embedding,warm,35,9.5188,9.704659999999999,10.86986,11.1186,9.728457142857142,
+ABLATION,retrieval,faiss_search,warm,35,0.5604,0.58926,0.6767299999999999,0.7627,0.5487314285714285,
+ABLATION,retrieval,evidence_guardrail,warm,35,0.0069,0.00718,0.0081,0.01,0.007002857142857143,
+ABLATION (pre-existing real-human smoke clip),stt,connection_setup,rest_new_connection,3,81.02090000000001,82.43014000000001,84.19169,84.544,74.11093333333334,speech duration is reported separately and excluded
+ABLATION (pre-existing real-human smoke clip),stt,audio_upload_or_send,rest_new_connection,3,111.92500000000001,118.63260000000001,127.01710000000001,128.69400000000002,115.89583333333333,speech duration is reported separately and excluded
+ABLATION (pre-existing real-human smoke clip),stt,vad_endpoint_detection,rest_new_connection,0,,,,,,speech duration is reported separately and excluded
+ABLATION (pre-existing real-human smoke clip),stt,server_processing,rest_new_connection,3,673.0871,714.31414,765.84794,776.1547,703.4247,speech duration is reported separately and excluded
+ABLATION (pre-existing real-human smoke clip),stt,eos_to_final_transcript,rest_new_connection,3,888.2439,919.0613000000001,957.5830500000001,965.2874,894.7293,speech duration is reported separately and excluded
+ABLATION (pre-existing real-human smoke clip),stt,connection_setup,rest_persistent_cold,1,69.0961,69.0961,69.0961,69.0961,69.0961,speech duration is reported separately and excluded
+ABLATION (pre-existing real-human smoke clip),stt,audio_upload_or_send,rest_persistent_cold,1,107.1886,107.1886,107.1886,107.1886,107.1886,speech duration is reported separately and excluded
+ABLATION (pre-existing real-human smoke clip),stt,vad_endpoint_detection,rest_persistent_cold,0,,,,,,speech duration is reported separately and excluded
+ABLATION (pre-existing real-human smoke clip),stt,server_processing,rest_persistent_cold,1,897.6984,897.6984,897.6984,897.6984,897.6984,speech duration is reported separately and excluded
+ABLATION (pre-existing real-human smoke clip),stt,eos_to_final_transcript,rest_persistent_cold,1,1074.9207,1074.9207,1074.9207,1074.9207,1074.9207,speech duration is reported separately and excluded
+ABLATION (pre-existing real-human smoke clip),stt,connection_setup,rest_persistent_warm,0,,,,,,speech duration is reported separately and excluded
+ABLATION (pre-existing real-human smoke clip),stt,audio_upload_or_send,rest_persistent_warm,2,0.70515,0.78737,0.890145,0.9107000000000001,0.70515,speech duration is reported separately and excluded
+ABLATION (pre-existing real-human smoke clip),stt,vad_endpoint_detection,rest_persistent_warm,0,,,,,,speech duration is reported separately and excluded
+ABLATION (pre-existing real-human smoke clip),stt,server_processing,rest_persistent_warm,2,693.8018,702.2805999999999,712.8791,714.9988,693.8018,speech duration is reported separately and excluded
+ABLATION (pre-existing real-human smoke clip),stt,eos_to_final_transcript,rest_persistent_warm,2,695.5273,703.8928999999999,714.3498999999999,716.4413,695.5273,speech duration is reported separately and excluded
+ABLATION (pre-existing real-human smoke clip),stt,connection_setup,websocket_buffered_preopened,3,178.8584,248.93676,336.53471,354.0543,233.4671,speech duration is reported separately and excluded
+ABLATION (pre-existing real-human smoke clip),stt,audio_upload_or_send,websocket_buffered_preopened,3,109.3284,110.96084,113.00139,113.4095,109.89276666666666,speech duration is reported separately and excluded
+ABLATION (pre-existing real-human smoke clip),stt,vad_endpoint_detection,websocket_buffered_preopened,3,2028.8094,2100.3436,2189.7613499999998,2207.6449,1957.6355999999998,speech duration is reported separately and excluded
+ABLATION (pre-existing real-human smoke clip),stt,server_processing,websocket_buffered_preopened,3,2337.5091,2351.5885000000003,2369.18775,2372.7076,2183.5989000000004,speech duration is reported separately and excluded
+ABLATION (pre-existing real-human smoke clip),stt,eos_to_final_transcript,websocket_buffered_preopened,3,2337.5309,2351.6090200000003,2369.20667,2372.7262,2183.6189333333336,speech duration is reported separately and excluded
+ABLATION (pre-existing real-human smoke clip),stt,connection_setup,websocket_live_stream_preopened,3,211.1509,234.77017999999998,264.29427999999996,270.1991,210.9532,speech duration is reported separately and excluded
+ABLATION (pre-existing real-human smoke clip),stt,audio_upload_or_send,websocket_live_stream_preopened,3,12705.8688,12707.21944,12708.90774,12709.2454,12704.815133333332,speech duration is reported separately and excluded
+ABLATION (pre-existing real-human smoke clip),stt,vad_endpoint_detection,websocket_live_stream_preopened,1,1.3612,1.3612,1.3612,1.3612,1.3612,speech duration is reported separately and excluded
+ABLATION (pre-existing real-human smoke clip),stt,server_processing,websocket_live_stream_preopened,3,37.1679,102.63889999999999,184.47764999999998,200.8454,79.33776666666667,speech duration is reported separately and excluded
+ABLATION (pre-existing real-human smoke clip),stt,eos_to_final_transcript,websocket_live_stream_preopened,3,37.2188,102.69307999999998,184.53593,200.9045,79.37443333333334,speech duration is reported separately and excluded
+ABLATION (pre-existing real-human smoke clip),stt,connection_setup,websocket_live_stream_persistent,0,,,,,,speech duration is reported separately and excluded
+ABLATION (pre-existing real-human smoke clip),stt,audio_upload_or_send,websocket_live_stream_persistent,0,,,,,,speech duration is reported separately and excluded
+ABLATION (pre-existing real-human smoke clip),stt,vad_endpoint_detection,websocket_live_stream_persistent,0,,,,,,speech duration is reported separately and excluded
+ABLATION (pre-existing real-human smoke clip),stt,server_processing,websocket_live_stream_persistent,0,,,,,,speech duration is reported separately and excluded
+ABLATION (pre-existing real-human smoke clip),stt,eos_to_final_transcript,websocket_live_stream_persistent,0,,,,,,speech duration is reported separately and excluded
+ABLATION (pre-existing real-human smoke clip),stt,connection_setup,vad_current,3,208.2659,255.78013999999996,315.17294,327.0515,242.47086666666667,speech duration is reported separately and excluded
+ABLATION (pre-existing real-human smoke clip),stt,audio_upload_or_send,vad_current,3,14650.1817,14650.35566,14650.57311,14650.6166,14649.459566666666,speech duration is reported separately and excluded
+ABLATION (pre-existing real-human smoke clip),stt,vad_endpoint_detection,vad_current,0,,,,,,speech duration is reported separately and excluded
+ABLATION (pre-existing real-human smoke clip),stt,server_processing,vad_current,3,0.0,0.0,0.0,0.0,0.0,speech duration is reported separately and excluded
+ABLATION (pre-existing real-human smoke clip),stt,eos_to_final_transcript,vad_current,3,0.0,0.0,0.0,0.0,0.0,speech duration is reported separately and excluded
+ABLATION (pre-existing real-human smoke clip),stt,connection_setup,vad_aggressive,3,191.4764,232.96875999999997,284.83421,295.2073,225.51323333333335,speech duration is reported separately and excluded
+ABLATION (pre-existing real-human smoke clip),stt,audio_upload_or_send,vad_aggressive,3,14169.4356,14174.085280000001,14179.89738,14181.0598,14172.8677,speech duration is reported separately and excluded
+ABLATION (pre-existing real-human smoke clip),stt,vad_endpoint_detection,vad_aggressive,3,79.5735,108.13433999999998,143.83538999999996,150.9756,99.25546666666666,speech duration is reported separately and excluded
+ABLATION (pre-existing real-human smoke clip),stt,server_processing,vad_aggressive,3,0.0,0.0,0.0,0.0,0.0,speech duration is reported separately and excluded
+ABLATION (pre-existing real-human smoke clip),stt,eos_to_final_transcript,vad_aggressive,3,367.5706,391.781,422.04400000000004,428.0966,365.3645333333334,speech duration is reported separately and excluded
+ABLATION (pre-existing real-human smoke clip),stt,connection_setup,vad_minimum_practical,3,260.3558,318.78756,391.82726,406.4352,261.30673333333334,speech duration is reported separately and excluded
+ABLATION (pre-existing real-human smoke clip),stt,audio_upload_or_send,vad_minimum_practical,3,13636.2977,13636.5633,13636.8953,13636.9617,13630.803866666667,speech duration is reported separately and excluded
+ABLATION (pre-existing real-human smoke clip),stt,vad_endpoint_detection,vad_minimum_practical,1,153.6812,153.6812,153.6812,153.6812,153.6812,speech duration is reported separately and excluded
+ABLATION (pre-existing real-human smoke clip),stt,server_processing,vad_minimum_practical,3,0.0,0.0,0.0,0.0,0.0,speech duration is reported separately and excluded
+ABLATION (pre-existing real-human smoke clip),stt,eos_to_final_transcript,vad_minimum_practical,3,48.8744,257.6517199999999,518.6233699999999,570.8177,215.9779333333333,speech duration is reported separately and excluded
+ABLATION,generation,prompt_serialization,reasoning_none_current,3,0.1121,0.11398,0.11633,0.1168,0.09573333333333334,new development optimization sample
+ABLATION,generation,client_setup,reasoning_none_current,3,156.2605,178.0799,205.35415,210.809,173.4888,new development optimization sample
+ABLATION,generation,network_connection_setup,reasoning_none_current,3,132.42759999999998,205.26055999999997,296.30175999999994,314.51,168.66426666666666,new development optimization sample
+ABLATION,generation,server_wait_to_headers,reasoning_none_current,3,179.1135,229.16605999999996,291.73175999999995,304.2449,215.34406666666666,new development optimization sample
+ABLATION,generation,time_to_first_content_token,reasoning_none_current,3,346.3183,486.82578,662.4601299999999,697.587,450.10786666666667,new development optimization sample
+ABLATION,generation,content_token_generation,reasoning_none_current,3,454.5646,709.512,1028.19625,1091.9331,665.8271333333333,new development optimization sample
+ABLATION,generation,output_parsing,reasoning_none_current,3,0.0398,0.04172,0.04412,0.0446,0.04083333333333333,new development optimization sample
+ABLATION,generation,grounding_validation,reasoning_none_current,3,0.0011,0.00118,0.0012799999999999999,0.0013,0.0010666666666666667,new development optimization sample
+ABLATION,generation,full_completion,reasoning_none_current,3,797.302,1194.18924,1690.2982899999997,1789.5201,1115.935,new development optimization sample
+ABLATION,generation,prompt_serialization,reasoning_provider_default,0,,,,,,new development optimization sample
+ABLATION,generation,client_setup,reasoning_provider_default,0,,,,,,new development optimization sample
+ABLATION,generation,network_connection_setup,reasoning_provider_default,0,,,,,,new development optimization sample
+ABLATION,generation,server_wait_to_headers,reasoning_provider_default,0,,,,,,new development optimization sample
+ABLATION,generation,time_to_first_content_token,reasoning_provider_default,0,,,,,,new development optimization sample
+ABLATION,generation,content_token_generation,reasoning_provider_default,0,,,,,,new development optimization sample
+ABLATION,generation,output_parsing,reasoning_provider_default,0,,,,,,new development optimization sample
+ABLATION,generation,grounding_validation,reasoning_provider_default,0,,,,,,new development optimization sample
+ABLATION,generation,full_completion,reasoning_provider_default,0,,,,,,new development optimization sample
+ABLATION,generation,prompt_serialization,max_tokens_128,4,0.09705,0.13116,0.14211000000000001,0.1443,0.098375,new development optimization sample
+ABLATION,generation,client_setup,max_tokens_128,4,154.78425,157.47819,158.084865,158.2062,154.351525,new development optimization sample
+ABLATION,generation,network_connection_setup,max_tokens_128,4,67.6729,69.30909999999999,80.1271,82.2907,68.893,new development optimization sample
+ABLATION,generation,server_wait_to_headers,max_tokens_128,4,130.25545,168.06106,171.17101,171.793,128.0216,new development optimization sample
+ABLATION,generation,time_to_first_content_token,max_tokens_128,4,252.05720000000002,292.62915,328.353525,335.4984,262.4992,new development optimization sample
+ABLATION,generation,content_token_generation,max_tokens_128,4,603.9685,666.67286,788.26256,812.5805,568.317775,new development optimization sample
+ABLATION,generation,output_parsing,max_tokens_128,4,0.02205,0.023519999999999996,0.03191999999999999,0.0336,0.023875,new development optimization sample
+ABLATION,generation,grounding_validation,max_tokens_128,4,0.0004,0.00042999999999999994,0.0006549999999999999,0.0007,0.00045,new development optimization sample
+ABLATION,generation,full_completion,max_tokens_128,4,879.84195,989.65982,1017.41372,1022.9645,830.816975,new development optimization sample
+ABLATION,generation,prompt_serialization,max_tokens_64,3,0.1344,0.13648,0.13908,0.1396,0.1239,new development optimization sample
+ABLATION,generation,client_setup,max_tokens_64,3,154.8113,154.82806,154.84901,154.8532,154.24766666666665,new development optimization sample
+ABLATION,generation,network_connection_setup,max_tokens_64,3,78.42970000000001,80.81554000000001,83.79784000000001,84.3943,77.25343333333333,new development optimization sample
+ABLATION,generation,server_wait_to_headers,max_tokens_64,3,116.48359999999998,141.83324,173.52029000000002,179.85770000000002,128.61843333333334,new development optimization sample
+ABLATION,generation,time_to_first_content_token,max_tokens_64,3,237.9472,272.89632,316.58272,325.32,266.3853666666667,new development optimization sample
+ABLATION,generation,content_token_generation,max_tokens_64,3,529.3151,596.82446,681.21116,698.0885,549.6423,new development optimization sample
+ABLATION,generation,output_parsing,max_tokens_64,3,0.0368,0.03764,0.038689999999999995,0.0389,0.035866666666666665,new development optimization sample
+ABLATION,generation,grounding_validation,max_tokens_64,3,0.0008,0.00084,0.00089,0.0009,0.0008333333333333334,new development optimization sample
+ABLATION,generation,full_completion,max_tokens_64,3,854.6351,887.19534,927.89564,936.0357,816.0276666666667,new development optimization sample
+ABLATION,generation,prompt_serialization,max_tokens_32,0,,,,,,new development optimization sample
+ABLATION,generation,client_setup,max_tokens_32,0,,,,,,new development optimization sample
+ABLATION,generation,network_connection_setup,max_tokens_32,0,,,,,,new development optimization sample
+ABLATION,generation,server_wait_to_headers,max_tokens_32,0,,,,,,new development optimization sample
+ABLATION,generation,time_to_first_content_token,max_tokens_32,0,,,,,,new development optimization sample
+ABLATION,generation,content_token_generation,max_tokens_32,0,,,,,,new development optimization sample
+ABLATION,generation,output_parsing,max_tokens_32,0,,,,,,new development optimization sample
+ABLATION,generation,grounding_validation,max_tokens_32,0,,,,,,new development optimization sample
+ABLATION,generation,full_completion,max_tokens_32,0,,,,,,new development optimization sample
+ABLATION,generation,prompt_serialization,non_streaming,4,0.10495,0.12207999999999998,0.15417999999999998,0.1606,0.108025,new development optimization sample
+ABLATION,generation,client_setup,non_streaming,4,155.01415,156.60025,156.621625,156.6259,154.9967,new development optimization sample
+ABLATION,generation,network_connection_setup,non_streaming,4,118.8732,151.27031999999994,268.76921999999996,292.269,147.83005,new development optimization sample
+ABLATION,generation,server_wait_to_headers,non_streaming,4,1136.2058,1636.1915899999988,4501.233514999998,5074.2419,2021.31025,new development optimization sample
+ABLATION,generation,time_to_first_content_token,non_streaming,4,,,,,,new development optimization sample
+ABLATION,generation,content_token_generation,non_streaming,4,,,,,,new development optimization sample
+ABLATION,generation,output_parsing,non_streaming,4,0.01525,0.01577,0.017044999999999998,0.0173,0.015525,new development optimization sample
+ABLATION,generation,grounding_validation,non_streaming,4,0.0003,0.00030999999999999995,0.000385,0.0004,0.000325,new development optimization sample
+ABLATION,generation,full_completion,non_streaming,4,1236.0154499999999,1770.5038399999987,4610.838139999999,5178.905,2170.9289,new development optimization sample
+ABLATION,generation,prompt_serialization,persistent_http,4,0.08685000000000001,0.09033000000000001,0.090555,0.0906,0.086175,new development optimization sample
+ABLATION,generation,client_setup,persistent_http,4,0.0005499999999999999,0.0006,0.0006,0.0006,0.000475,new development optimization sample
+ABLATION,generation,network_connection_setup,persistent_http,4,101.0875,110.30497999999999,152.67157999999998,161.1449,106.0256,new development optimization sample
+ABLATION,generation,server_wait_to_headers,persistent_http,4,172.872,198.86943999999997,265.34599,278.6413,174.85945,new development optimization sample
+ABLATION,generation,time_to_first_content_token,persistent_http,4,504.73545,799.0274699999997,1536.5037449999995,1683.999,730.125325,new development optimization sample
+ABLATION,generation,content_token_generation,persistent_http,4,1548.7768500000002,2492.7371099999996,3720.2876849999993,3965.7978,1879.75445,new development optimization sample
+ABLATION,generation,output_parsing,persistent_http,4,0.03125,0.03498,0.04008,0.0411,0.03195,new development optimization sample
+ABLATION,generation,grounding_validation,persistent_http,4,0.0005499999999999999,0.0006099999999999999,0.000685,0.0007,0.000575,new development optimization sample
+ABLATION,generation,full_completion,persistent_http,4,2053.5123,3291.764579999999,5256.791429999999,5649.7968,2609.879775,new development optimization sample
+ABLATION,generation,prompt_serialization,context_top5,4,0.09645000000000001,0.09862,0.10702,0.1087,0.091225,new development optimization sample
+ABLATION,generation,client_setup,context_top5,4,155.17985,157.10792999999998,158.258655,158.4888,155.02215,new development optimization sample
+ABLATION,generation,network_connection_setup,context_top5,4,81.91525,94.53524999999996,182.92762499999998,200.6061,111.106975,new development optimization sample
+ABLATION,generation,server_wait_to_headers,context_top5,4,131.445,195.48834999999988,432.6004749999999,480.0229,203.41605,new development optimization sample
+ABLATION,generation,time_to_first_content_token,context_top5,4,254.2584,328.6087899999999,622.6942149999999,681.5113,347.462675,new development optimization sample
+ABLATION,generation,content_token_generation,context_top5,4,832.1028,1134.9507199999998,1564.8043699999998,1650.7751,947.680275,new development optimization sample
+ABLATION,generation,output_parsing,context_top5,4,0.032549999999999996,0.03317,0.034445,0.0347,0.0316,new development optimization sample
+ABLATION,generation,grounding_validation,context_top5,4,0.0008,0.0008,0.0008,0.0008,0.0007750000000000001,new development optimization sample
+ABLATION,generation,full_completion,context_top5,4,1227.004,1352.14044,1767.5214899999999,1850.5977,1295.14295,new development optimization sample
+ABLATION,generation,prompt_serialization,context_top3,4,0.06225,0.06660999999999999,0.09143499999999999,0.0964,0.06645,new development optimization sample
+ABLATION,generation,client_setup,context_top3,4,157.86175,159.17633,161.505305,161.9711,158.348025,new development optimization sample
+ABLATION,generation,network_connection_setup,context_top3,4,77.0906,79.81154999999998,90.86317499999998,93.0735,76.9065,new development optimization sample
+ABLATION,generation,server_wait_to_headers,context_top3,4,75.41305,77.41912,77.67202,77.7226,72.48972499999999,new development optimization sample
+ABLATION,generation,time_to_first_content_token,context_top3,4,205.60969999999998,211.18496999999996,252.14899499999996,260.3418,216.11784999999998,new development optimization sample
+ABLATION,generation,content_token_generation,context_top3,4,818.11725,1068.71369,1116.595865,1126.1723,829.874125,new development optimization sample
+ABLATION,generation,output_parsing,context_top3,4,0.02475,0.029539999999999997,0.02984,0.0299,0.0237,new development optimization sample
+ABLATION,generation,grounding_validation,context_top3,4,0.0005499999999999999,0.0006099999999999999,0.000685,0.0007,0.000525,new development optimization sample
+ABLATION,generation,full_completion,context_top3,4,1044.74325,1262.8825000000002,1320.20425,1331.6686,1045.991975,new development optimization sample
+ABLATION,generation,prompt_serialization,compressed_top5,4,0.07205,0.07702999999999999,0.085505,0.0872,0.06999999999999999,new development optimization sample
+ABLATION,generation,client_setup,compressed_top5,4,155.12075,155.76511,156.131185,156.2044,154.31742500000001,new development optimization sample
+ABLATION,generation,network_connection_setup,compressed_top5,4,66.33175,69.05116999999998,84.81144499999999,87.9635,67.044375,new development optimization sample
+ABLATION,generation,server_wait_to_headers,compressed_top5,4,114.26829999999998,144.8781,149.5626,150.4995,115.49234999999999,new development optimization sample
+ABLATION,generation,time_to_first_content_token,compressed_top5,4,228.51695,262.15004999999996,281.923425,285.8781,233.8836,new development optimization sample
+ABLATION,generation,content_token_generation,compressed_top5,4,671.37305,733.87388,813.27248,829.1522,680.2547,new development optimization sample
+ABLATION,generation,output_parsing,compressed_top5,4,0.0238,0.02768,0.030529999999999998,0.0311,0.024075,new development optimization sample
+ABLATION,generation,grounding_validation,compressed_top5,4,0.0004,0.00042999999999999994,0.0006549999999999999,0.0007,0.00045,new development optimization sample
+ABLATION,generation,full_completion,compressed_top5,4,910.6233,926.9860699999999,1010.0580949999999,1026.6725,914.1383,new development optimization sample
+ABLATION (live account capability probe),generation,prompt_serialization,model_probe_sarvam-30b,0,,,,,,new development optimization sample
+ABLATION (live account capability probe),generation,client_setup,model_probe_sarvam-30b,0,,,,,,new development optimization sample
+ABLATION (live account capability probe),generation,network_connection_setup,model_probe_sarvam-30b,0,,,,,,new development optimization sample
+ABLATION (live account capability probe),generation,server_wait_to_headers,model_probe_sarvam-30b,0,,,,,,new development optimization sample
+ABLATION (live account capability probe),generation,time_to_first_content_token,model_probe_sarvam-30b,0,,,,,,new development optimization sample
+ABLATION (live account capability probe),generation,content_token_generation,model_probe_sarvam-30b,0,,,,,,new development optimization sample
+ABLATION (live account capability probe),generation,output_parsing,model_probe_sarvam-30b,0,,,,,,new development optimization sample
+ABLATION (live account capability probe),generation,grounding_validation,model_probe_sarvam-30b,0,,,,,,new development optimization sample
+ABLATION (live account capability probe),generation,full_completion,model_probe_sarvam-30b,0,,,,,,new development optimization sample
