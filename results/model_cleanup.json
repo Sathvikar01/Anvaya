@@ -1,0 +1,32 @@
+{
+  "root": "cache\\models",
+  "winner": "BAAI/bge-m3",
+  "candidates": [
+    "Alibaba-NLP/gte-multilingual-base",
+    "BAAI/bge-m3",
+    "intfloat/multilingual-e5-base",
+    "jinaai/jina-embeddings-v3"
+  ],
+  "removed": [],
+  "preserved": [
+    {
+      "repository": "BAAI/bge-m3",
+      "path": "cache\\models\\BAAI__bge-m3--5617a9f61b02"
+    }
+  ],
+  "skipped": [
+    {
+      "repository": "Alibaba-NLP/gte-multilingual-base",
+      "reason": "retained_for_reproducibility"
+    },
+    {
+      "repository": "intfloat/multilingual-e5-base",
+      "reason": "retained_for_reproducibility"
+    },
+    {
+      "repository": "jinaai/jina-embeddings-v3",
+      "reason": "retained_for_reproducibility"
+    }
+  ],
+  "removed_bytes": 0
+}
