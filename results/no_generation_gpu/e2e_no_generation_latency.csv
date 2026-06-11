@@ -1,0 +1,11 @@
+scope,stage,measured_cases,p50_ms,p70_ms,p95_ms,p100_ms,mean_ms,status
+24 development text cases,stt,0,,,,,,SKIPPED_NO_GENERATION
+24 development text cases,input_validation,24,0.01565,0.018,0.03249999999999997,0.0367,0.0161875,MEASURED
+24 development text cases,route_check,24,0.07635,0.07908,0.15607499999999985,0.1765,0.07369583333333334,MEASURED
+24 development text cases,query_embedding,24,9.54575,10.120099999999999,11.356365,13.1146,6.845045833333334,MEASURED
+24 development text cases,vector_search,24,0.4936,0.5216299999999999,0.596965,0.7187,0.34863333333333335,MEASURED
+24 development text cases,evidence_guardrail,24,0.0060999999999999995,0.0074,0.010924999999999994,0.0117,0.004975,MEASURED
+24 development text cases,guardrails,24,0.1009,0.10532,0.1802899999999999,0.2197,0.09485833333333334,MEASURED
+24 development text cases,generation,0,,,,,,SKIPPED_NO_GENERATION
+24 development text cases,grounding_validation,0,,,,,,SKIPPED_NO_GENERATION
+24 development text cases,pre_generation_total,24,10.138200000000001,10.824829999999999,12.010530000000001,13.9793,7.291483333333333,MEASURED
