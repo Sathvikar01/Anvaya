@@ -1,0 +1,1 @@
+transport,sample_id,case_id,category,variant,speaker_id,audio_path,reference_text,transcript,status,error_code,error_message,attempts,wer,word_errors,reference_words,exact_match,normalized_match,latency_ms,connection_latency_ms,time_to_first_partial_ms,time_to_first_transcript_ms,end_of_speech_to_final_ms,audio_duration_ms,language_code,request_id
