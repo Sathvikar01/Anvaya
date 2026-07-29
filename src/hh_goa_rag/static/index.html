@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f6f3ea" />
+    <title>Anvaya | Grounded Voice Intelligence</title>
+    <meta name="description" content="A transparent multilingual voice assistant that answers from evidence." />
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <div class="background-orb-layer" aria-hidden="true"></div>
+    <div class="page-scroll">
+      <div class="page-shell">
+      <header class="topbar">
+        <a class="brand" href="/" aria-label="Anvaya home">
+          <span class="brand-mark" aria-hidden="true">A</span>
+          <span>Anvaya</span>
+          <span class="brand-type">voice intelligence</span>
+        </a>
+        <div class="topbar-right">
+          <a class="trust-link" href="#transparency">How it works <span aria-hidden="true">↘</span></a>
+          <div class="system-chip" id="health-chip">
+            <span class="status-dot" aria-hidden="true"></span>
+            <span id="health-text">Checking system</span>
+          </div>
+        </div>
+      </header>
+
+      <main>
+        <section class="hero">
+          <div class="hero-kicker"><span class="kicker-line"></span> HH Goa · Voice-RAG <span class="kicker-line"></span></div>
+          <h1>Ask naturally.<br /><em>See the reasoning.</em></h1>
+          <p class="hero-copy">Anvaya listens in your language, searches its knowledge base, and shows the evidence behind every answer. If the sources are not strong enough, it tells you plainly.</p>
+          <div class="hero-trust-row" aria-label="System principles">
+            <span><i class="trust-icon">◉</i> Evidence first</span>
+            <span><i class="trust-icon">⌁</i> One frozen path</span>
+            <span><i class="trust-icon">↗</i> Measured boundaries</span>
+          </div>
+        </section>
+
+        <section class="workspace" aria-label="Ask Anvaya">
+          <section class="query-panel" aria-labelledby="query-title">
+            <div class="query-heading">
+              <div>
+                <div class="section-label-row"><p class="section-label">01 / Ask</p><span class="live-pill">Ready when you are</span></div>
+                <h2 id="query-title">What would you like to know?</h2>
+              </div>
+              <span class="format-chip voice-only-format"><span class="mini-wave" aria-hidden="true"></span> 16 kHz · mono · PCM16</span>
+            </div>
+
+            <div class="input-mode" role="tablist" aria-label="Choose query input">
+              <button class="mode-button mode-button-text" id="text-mode-button" type="button" role="tab" aria-selected="false">
+                <span class="mode-copy"><strong>Text</strong><small>Type a question</small></span>
+                <span class="mode-mark mode-mark-text" aria-hidden="true"></span>
+              </button>
+              <button class="mode-button mode-button-voice active" id="voice-mode-button" type="button" role="tab" aria-label="Use voice input" title="Use voice input" aria-selected="true">
+                <span class="mode-copy"><strong>Voice</strong><small>Speak or upload</small></span>
+                <span class="mode-mark mode-mark-voice" aria-hidden="true"></span>
+              </button>
+            </div>
+
+            <div class="language-control">
+              <label for="language-select">Question / voice language</label>
+              <select id="language-select" aria-describedby="language-hint">
+                <option value="hi-IN" selected>हिन्दी · Hindi</option>
+                <option value="en-IN">English</option>
+                <option value="bn-IN">বাংলা · Bengali</option>
+                <option value="gu-IN">ગુજરાતી · Gujarati</option>
+                <option value="kn-IN">ಕನ್ನಡ · Kannada</option>
+                <option value="ml-IN">മലയാളം · Malayalam</option>
+                <option value="mr-IN">मराठी · Marathi</option>
+                <option value="od-IN">ଓଡ଼ିଆ · Odia</option>
+                <option value="pa-IN">ਪੰਜਾਬੀ · Punjabi</option>
+                <option value="ta-IN">தமிழ் · Tamil</option>
+                <option value="te-IN">తెలుగు · Telugu</option>
+                <option value="as-IN">অসমীয়া · Assamese</option>
+                <option value="ur-IN">اردو · Urdu</option>
+                <option value="ne-IN">नेपाली · Nepali</option>
+                <option value="kok-IN">कोंकणी · Konkani</option>
+                <option value="ks-IN">कॉशुर · Kashmiri</option>
+                <option value="sd-IN">सिन्धी · Sindhi</option>
+                <option value="sa-IN">संस्कृतम् · Sanskrit</option>
+                <option value="sat-IN">संताली · Santali</option>
+                <option value="mni-IN">মৈতৈলোন্ · Manipuri</option>
+                <option value="brx-IN">बड़ो · Bodo</option>
+                <option value="mai-IN">मैथिली · Maithili</option>
+                <option value="doi-IN">डोगरी · Dogri</option>
+              </select>
+              <span id="language-hint">Used for voice transcription and recorded in the request trace.</span>
+            </div>
+
+            <div class="input-explainer" role="note" aria-label="What happens after you ask">
+              <div class="explainer-heading"><span class="explainer-icon" aria-hidden="true">i</span><strong>What happens after you ask</strong></div>
+              <div class="explainer-steps" aria-label="Question processing steps">
+                <span><b>1</b> Transcribe or read</span>
+                <span><b>2</b> Search evidence</span>
+                <span><b>3</b> Answer or explain</span>
+              </div>
+              <p>Anvaya answers only when the evidence is strong enough. If it stops, the reason is shown with the result.</p>
+            </div>
+
+            <div id="voice-input-panel">
+              <div class="record-area">
+                <div class="record-visual" id="record-visual" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+                <div class="record-actions">
+                  <button class="primary-button" id="record-button" type="button"><span class="record-icon" aria-hidden="true"></span><span id="record-label">Record a question</span></button>
+                  <button class="stop-button" id="stop-button" type="button" disabled><span class="stop-icon" aria-hidden="true"></span>Stop</button>
+                </div>
+                <p class="record-hint" id="record-hint">Up to 30 seconds · microphone access is requested only when you record</p>
+              </div>
+
+              <div class="divider"><span>or bring an existing recording</span></div>
+              <label class="upload-control" for="audio-upload">
+                <span class="upload-icon" aria-hidden="true">↗</span>
+                <span class="upload-copy"><strong>Upload an audio file</strong><small>Converted in your browser before it is sent · WAV, MP3, M4A, or WebM</small></span>
+                <span class="upload-arrow" aria-hidden="true">→</span>
+                <input id="audio-upload" type="file" accept="audio/*,.wav" />
+              </label>
+            </div>
+
+            <div class="text-input-panel" id="text-input-panel" hidden>
+              <label class="text-query-label" for="text-query">Type your question</label>
+              <textarea id="text-query" maxlength="2000" rows="5" placeholder="Ask something that can be answered from the knowledge base…"></textarea>
+              <div class="text-input-footer">
+                <span id="text-count">0 / 2,000 characters</span>
+                <button class="primary-button" id="text-submit-button" type="button">Retrieve answer <span aria-hidden="true">↗</span></button>
+              </div>
+              <p class="text-input-hint">Your text follows the same checks, evidence retrieval, and grounding validation as a voice question.</p>
+            </div>
+
+            <div class="input-note"><span class="note-check" aria-hidden="true">✓</span><span><strong>Clear input boundary.</strong> One normalized audio clip is sent per question. No audio is played back in this page.</span></div>
+            <div class="alert" id="alert" role="alert" hidden></div>
+          </section>
+
+          <aside class="transparency-card" id="transparency" aria-labelledby="transparency-title">
+            <div class="aside-topline"><p class="section-label">Transparency</p><span class="lock-mark" aria-hidden="true">✦</span></div>
+            <h2 id="transparency-title">Nothing happens<br /><em>behind a curtain.</em></h2>
+            <p class="aside-intro">Your question moves through a fixed, visible path. Each checkpoint can allow, refuse, or stop the request.</p>
+            <div class="architecture-map" aria-label="Anvaya request architecture">
+              <div class="architecture-inputs">
+                <div class="architecture-node branch-node"><strong>Voice</strong><small>Saaras v3 STT</small></div>
+                <div class="architecture-node branch-node"><strong>Text</strong><small>Direct transcript</small></div>
+              </div>
+              <span class="architecture-arrow" aria-hidden="true">↓</span>
+              <div class="architecture-node"><strong>Guardrails</strong><small>Validate + deterministic route</small></div>
+              <span class="architecture-arrow" aria-hidden="true">↓</span>
+              <div class="architecture-node"><strong>Retrieve</strong><small>BGE-M3 → FAISS HNSW · Top-10</small></div>
+              <span class="architecture-arrow" aria-hidden="true">↓</span>
+              <div class="architecture-node"><strong>Evidence gate</strong><small>Top-1 ≥ 0.67 or consistency rescue</small></div>
+              <span class="architecture-arrow" aria-hidden="true">↓</span>
+              <div class="architecture-node"><strong>Generate + validate</strong><small>Extractive fast tier → Qwen3.5 · strict_context_only</small></div>
+            </div>
+            <div class="aside-footer"><span class="footer-dot"></span><span>Every response exposes its route, reason code, sources, citations, and measured timings.</span></div>
+          </aside>
+        </section>
+
+        <section class="progress-panel" id="progress-panel" aria-live="polite" hidden>
+          <div class="progress-header">
+            <div><div class="section-label-row"><p class="section-label">Live trace</p><span class="trace-id" id="trace-label">Voice path · observed stages only</span></div><h2 id="active-stage">Preparing audio</h2></div>
+            <div class="processing-orbit" aria-hidden="true"></div>
+          </div>
+          <ol class="stage-list" id="stage-list">
+            <li data-stage="Transcribing"><span>01</span><strong>Transcribing</strong><small>Voice only · Saaras v3</small></li>
+            <li data-stage="Checking query"><span>02</span><strong>Checking query</strong><small>Validate + route</small></li>
+            <li data-stage="Retrieving evidence"><span>03</span><strong>Retrieving evidence</strong><small>BGE-M3 → HNSW</small></li>
+            <li data-stage="Generating answer"><span>04</span><strong>Generating answer</strong><small>Fast tier → Qwen fallback</small></li>
+            <li data-stage="Validating grounding"><span>05</span><strong>Validating grounding</strong><small>Schema + citations</small></li>
+            <li data-stage="Complete"><span>06</span><strong>Complete</strong><small>Response returned</small></li>
+          </ol>
+        </section>
+
+        <section class="result-panel" id="result-panel" aria-live="polite" hidden>
+          <div class="result-topline"><div class="result-status"><span class="route-badge" id="route-badge">ANSWER</span><span class="result-caption" id="query-kind">Voice input · final route</span></div><span class="latency" id="latency"></span></div>
+          <div class="transcript-block"><div class="block-heading"><p class="section-label">You asked</p><span class="visibility-label">Transcription shown in full</span></div><p id="transcript"></p></div>
+          <div class="answer-block"><div class="block-heading"><p class="section-label" id="answer-label">Answer</p><span class="visibility-label" id="answer-visibility-label">Generated from cited evidence</span></div><p class="answer-text" id="answer"></p><p class="reason-code" id="reason-code"></p></div>
+
+          <div class="evidence-block" id="evidence-block" hidden>
+            <div class="evidence-heading"><div><p class="section-label">Evidence gate</p><h3 id="evidence-title">What supports this answer</h3></div><span id="source-count"></span></div>
+            <p class="evidence-helper" id="evidence-helper">Green-marked passages were cited by the answer. Expand any row to inspect the exact retrieved text.</p>
+            <div class="evidence-list" id="evidence-list"></div>
+          </div>
+
+          <details class="technical-details"><summary><span>Open full request trace</span><span class="summary-note">STT · validation · embedding · retrieval · generation <span aria-hidden="true">+</span></span></summary><div class="technical-content"><div class="metric-grid" id="metric-grid"></div><div class="retrieved-ids"><p class="section-label">Retrieved parent IDs</p><div id="retrieved-ids"></div></div></div></details>
+          <button class="secondary-button" id="new-query-button" type="button">Ask another question <span aria-hidden="true">↗</span></button>
+        </section>
+      </main>
+
+      <footer><span><span class="footer-brand-mark">A</span> Anvaya · frozen stack · deterministic routing</span><span>Saaras v3 · BGE-M3 · FAISS HNSW · Qwen3.5</span></footer>
+      </div>
+    </div>
+    <script src="/static/app.js" defer></script>
+  </body>
+</html>
