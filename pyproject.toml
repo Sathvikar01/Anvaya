@@ -31,6 +31,7 @@ experiment = [
   "transformers>=4.51",
 ]
 stt = [
+  "gnani-vachana>=0.8.1,<0.9",
   "python-dotenv>=1.2",
   "sarvamai==0.1.30",
   "sounddevice>=0.5,<0.6",
@@ -42,6 +43,7 @@ generation = [
 ]
 app = [
   "faiss-cpu>=1.10",
+  "gnani-vachana>=0.8.1,<0.9",
   "h2>=4.2,<5",
   "httpx>=0.28,<1",
   "indic-transliteration>=2.3",

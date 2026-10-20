@@ -99,10 +99,10 @@ class AudioInfo:
 class STTResult:
     """Provider-neutral, JSON-serializable transcription observation."""
 
-    provider: Literal["sarvam"]
+    provider: Literal["sarvam", "gnani"]
     transport: Literal["rest", "streaming"]
-    model: Literal["saaras:v3"]
-    mode: Literal["transcribe"]
+    model: str
+    mode: str
     status: Literal["ok", "error"]
     transcript: str
     latency_ms: float

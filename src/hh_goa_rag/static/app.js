@@ -40,6 +40,11 @@ const elements = {
   answerLabel: document.querySelector("#answer-label"),
   answerVisibilityLabel: document.querySelector("#answer-visibility-label"),
   answer: document.querySelector("#answer"),
+  listenRow: document.querySelector("#listen-row"),
+  listenButton: document.querySelector("#listen-button"),
+  listenLabel: document.querySelector("#listen-label"),
+  listenNote: document.querySelector("#listen-note"),
+  inputNoteText: document.querySelector(".input-note > span:last-child"),
   reasonCode: document.querySelector("#reason-code"),
   evidenceBlock: document.querySelector("#evidence-block"),
   evidenceTitle: document.querySelector("#evidence-title"),
@@ -65,6 +70,12 @@ const recording = {
 
 let progressRequestId = null;
 let lastQueryKind = "voice";
+// Gnani Timbre read-aloud is optional: /health reports whether the server has TTS configured.
+let ttsAvailable = false;
+let ttsAudio = null;
+let ttsObjectUrl = null;
+let lastSpokenText = "";
+let lastAnswerLanguage = "hi-IN";
 
 elements.recordButton.addEventListener("click", startRecording);
 elements.stopButton.addEventListener("click", () => stopRecording(true));
@@ -74,6 +85,7 @@ elements.textModeButton.addEventListener("click", () => setInputMode("text"));
 elements.textQuery.addEventListener("input", updateTextCount);
 elements.textSubmitButton.addEventListener("click", submitText);
 elements.newQueryButton.addEventListener("click", resetForNewQuery);
+elements.listenButton.addEventListener("click", speakAnswer);
 window.addEventListener("pagehide", releaseMicrophone);
 
 updateTextCount();
@@ -103,6 +115,16 @@ async function checkHealth() {
     if (!response.ok) throw new Error("unavailable");
     elements.healthChip.classList.add("ready");
     elements.healthText.textContent = "System ready";
+    try {
+      const health = await response.json();
+      ttsAvailable = Boolean(health && health.tts_available);
+    } catch (_parseError) {
+      ttsAvailable = false;
+    }
+    if (ttsAvailable && elements.inputNoteText) {
+      elements.inputNoteText.innerHTML =
+        "<strong>Clear input boundary.</strong> One normalized audio clip is sent per question. Answers can be read aloud on request.";
+    }
   } catch (_error) {
     elements.healthChip.classList.add("error");
     elements.healthText.textContent = "System unavailable";
@@ -417,6 +439,7 @@ function renderResult(data) {
           : "No answer generated · retrieval evidence shown";
     }
     elements.answer.textContent = responseText(data);
+    prepareListen(data);
     elements.reasonCode.textContent = `Reason code · ${data.reason_code || "NONE"}`;
     renderEvidence(data);
     renderTechnicalDetails(data);
@@ -593,7 +616,83 @@ function setModeDisabled(disabled) {
   elements.textModeButton.disabled = disabled;
 }
 
+function prepareListen(data) {
+  stopSpeech();
+  // Citation markers such as [p-12] are shown on screen but not spoken.
+  lastSpokenText = data.route === "ANSWER"
+    ? (data.answer || "").replace(/\[[^\]]*\]/g, " ").replace(/\s+/g, " ").trim().slice(0, 1000)
+    : "";
+  lastAnswerLanguage = elements.languageSelect.value || "hi-IN";
+  elements.listenRow.hidden = !(ttsAvailable && lastSpokenText);
+  elements.listenButton.disabled = false;
+  elements.listenLabel.textContent = "Listen";
+  elements.listenNote.textContent = "Read aloud by Gnani Timbre";
+}
+
+async function speakAnswer() {
+  if (ttsAudio && !ttsAudio.paused) {
+    stopSpeech();
+    return;
+  }
+  if (!lastSpokenText) return;
+  elements.listenButton.disabled = true;
+  elements.listenLabel.textContent = "Preparing audio…";
+  try {
+    const response = await fetch("/api/tts", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ text: lastSpokenText, language_code: lastAnswerLanguage }),
+    });
+    if (!response.ok) {
+      let code = "";
+      try {
+        code = (await response.json()).error_code || "";
+      } catch (_error) {
+        code = "";
+      }
+      throw new UserFacingError(
+        code === "unsupported_language"
+          ? "Read-aloud is not available for this language yet."
+          : "The answer could not be read aloud right now.",
+      );
+    }
+    const latency = response.headers.get("X-TTS-Latency-Ms");
+    const blob = await response.blob();
+    stopSpeech();
+    ttsObjectUrl = URL.createObjectURL(blob);
+    ttsAudio = new Audio(ttsObjectUrl);
+    ttsAudio.addEventListener("ended", () => {
+      elements.listenLabel.textContent = "Listen again";
+    });
+    await ttsAudio.play();
+    elements.listenLabel.textContent = "Stop";
+    if (latency) {
+      elements.listenNote.textContent = `Read aloud by Gnani Timbre · ${formatMs(Number(latency))} synthesis`;
+    }
+  } catch (error) {
+    elements.listenLabel.textContent = "Listen";
+    elements.listenNote.textContent =
+      error instanceof UserFacingError ? error.message : "The answer could not be read aloud right now.";
+  } finally {
+    elements.listenButton.disabled = false;
+  }
+}
+
+function stopSpeech() {
+  if (ttsAudio) {
+    ttsAudio.pause();
+    ttsAudio = null;
+  }
+  if (ttsObjectUrl) {
+    URL.revokeObjectURL(ttsObjectUrl);
+    ttsObjectUrl = null;
+  }
+  if (elements.listenLabel && lastSpokenText) elements.listenLabel.textContent = "Listen";
+}
+
 function resetForNewQuery() {
+  stopSpeech();
+  elements.listenRow.hidden = true;
   elements.resultPanel.hidden = true;
   elements.progressPanel.hidden = true;
   clearAlert();

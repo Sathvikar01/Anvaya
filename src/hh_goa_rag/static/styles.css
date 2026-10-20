@@ -229,6 +229,12 @@ h2, h3 { margin: 0; letter-spacing: -.04em; }
 .transcript-block > p { margin: 12px 0 0; font-size: 15px; line-height: 1.65; color: var(--muted); }
 .answer-block { padding: 29px 0 31px; }
 .answer-text { margin: 13px 0 0; max-width: 830px; font-family: Georgia, serif; font-size: clamp(23px, 4vw, 34px); line-height: 1.45; letter-spacing: -.025em; }
+.listen-row { margin: 16px 0 0; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.listen-button { border: 1px solid rgba(23,107,77,.28); border-radius: 999px; padding: 9px 16px; display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,251,.96); color: var(--green-dark); font-weight: 700; cursor: pointer; transition: background .15s ease, transform .15s ease; }
+.listen-button:hover:not(:disabled) { background: #fff; transform: translateY(-1px); }
+.listen-button:focus-visible { outline: 3px solid rgba(23,107,77,.28); outline-offset: 3px; }
+.listen-button:disabled { cursor: progress; opacity: .6; transform: none; }
+.listen-note { color: var(--muted-light); font-size: 10px; }
 .reason-code { margin: 15px 0 0; color: var(--muted); font-size: 10px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
 .evidence-block { border-top: 1px solid var(--line); padding-top: 29px; }
 .evidence-heading h3 { font-family: Georgia, serif; font-size: 24px; font-weight: 400; }
