@@ -7,6 +7,7 @@ __pycache__/
 .env
 !.env.example
 eval/audio/*.wav
+results/*.wav
 !eval/audio/.gitkeep
 
 # Reproducible generated artifacts (never commit large data/model caches)

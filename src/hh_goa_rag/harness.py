@@ -35,7 +35,7 @@ from hh_goa_rag.guardrails import (
 from hh_goa_rag.guardrails.types import STAGE_NAMES
 from hh_goa_rag.models import MODEL_SPECS, EmbeddingModel, safe_model_name
 from hh_goa_rag.retriever import ParentFaissRetriever
-from hh_goa_rag.stt.sarvam import SarvamSTT
+from hh_goa_rag.stt.providers import build_stt_from_env
 
 LOGGER = logging.getLogger("hh_goa_rag.harness")
 
@@ -299,7 +299,9 @@ class VoiceRAGHarness:
                 generator = resolved_generator
         else:
             raise ValueError(f"Unsupported HH_RAG_GENERATOR: {generator_name}")
-        stt = SarvamSTT.from_env(env_path) if include_stt else None
+        # Gnani Prisma is the default STT provider (HH_RAG_STT_PROVIDER); Sarvam Saaras v3
+        # remains the fallback and the sole provider when GNANI_API_KEY is absent.
+        stt = build_stt_from_env(env_path) if include_stt else None
         orchestrator = os.getenv("HH_RAG_ORCHESTRATOR", "native").strip().lower()
         fast_tier_thresholds = _parse_fast_tier_threshold_env()
         response_cache = _parse_response_cache_env()

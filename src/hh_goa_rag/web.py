@@ -25,6 +25,7 @@ from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 
 from hh_goa_rag.harness import VoiceRAGHarness
+from hh_goa_rag.stt.providers import resolve_stt_provider
 
 LOGGER = logging.getLogger(__name__)
 
@@ -32,6 +33,8 @@ APP_TITLE = "Anvaya Voice-RAG"
 MAX_AUDIO_BYTES = 2 * 1024 * 1024
 MAX_AUDIO_SECONDS = 30.0
 MAX_TEXT_CHARS = 2_000
+MAX_TTS_CHARS = 1_000
+MAX_CONCURRENT_TTS_REQUESTS = 2
 MAX_CONCURRENT_REQUESTS = 1
 MAX_REQUEST_BODY_BYTES = MAX_AUDIO_BYTES + 64 * 1024
 REQUEST_ID_PATTERN = re.compile(r"^[A-Za-z0-9_-]{8,80}$")
@@ -143,8 +146,11 @@ def validate_environment(settings: AppSettings) -> dict[str, Any]:
     """Validate secrets and frozen artifacts without revealing secret values."""
     load_dotenv(settings.env_file, override=False)
     errors: list[str] = []
-    if not os.getenv("SARVAM_API_KEY", "").strip():
-        errors.append("SARVAM_API_KEY is missing")
+    stt_provider = "unavailable"
+    try:
+        stt_provider = resolve_stt_provider(settings.env_file)
+    except ValueError as error:
+        errors.append(str(error))
     if not settings.retriever_config.is_file():
         errors.append(f"retriever config is missing: {settings.retriever_config}")
     else:
@@ -160,7 +166,7 @@ def validate_environment(settings: AppSettings) -> dict[str, Any]:
     if errors:
         raise RuntimeError("; ".join(errors))
     return {
-        "sarvam_api_key": "configured",
+        "stt_provider": stt_provider,
         "generation": "local-qwen-gguf",
         "retriever_config": "available",
         "frozen_artifacts": "available",
@@ -177,17 +183,26 @@ def _default_harness_factory(settings: AppSettings) -> VoiceRAGHarness:
     )
 
 
+def _default_tts_factory(settings: AppSettings) -> Any | None:
+    from hh_goa_rag.tts import build_tts_from_env
+
+    return build_tts_from_env(settings.env_file)
+
+
 def create_app(
     *,
     harness_factory: Callable[[AppSettings], Any] | None = None,
+    tts_factory: Callable[[AppSettings], Any | None] | None = None,
     settings: AppSettings | None = None,
     include_ui: bool = True,
     defer_startup: bool = False,
 ) -> FastAPI:
     configured_settings = settings or AppSettings.from_env()
     build_harness = harness_factory or _default_harness_factory
+    build_tts = tts_factory or _default_tts_factory
     progress = ProgressRegistry()
     request_slots = asyncio.Semaphore(MAX_CONCURRENT_REQUESTS)
+    tts_slots = asyncio.Semaphore(MAX_CONCURRENT_TTS_REQUESTS)
     active_jobs: set[asyncio.Task[Any]] = set()
 
     @asynccontextmanager
@@ -195,6 +210,13 @@ def create_app(
         app.state.harness = None
         app.state.startup_error = None
         app.state.environment = {}
+        # TTS is optional and independent of the RAG pipeline: a missing key or SDK only
+        # disables "Listen", it never blocks startup.
+        try:
+            app.state.tts = build_tts(configured_settings)
+        except Exception:
+            LOGGER.exception("Text-to-speech startup failed; continuing text-only")
+            app.state.tts = None
         def initialize_pipeline() -> None:
             try:
                 if harness_factory is None:
@@ -238,7 +260,9 @@ def create_app(
     @app.middleware("http")
     async def security_headers(request: Request, call_next: Callable[..., Any]) -> Response:
         content_length = request.headers.get("content-length")
-        if request.url.path in {"/api/query/audio", "/api/query/text"} and content_length:
+        if request.url.path in {"/api/query/audio", "/api/query/text", "/api/tts"} and (
+            content_length
+        ):
             try:
                 max_body_bytes = (
                     MAX_REQUEST_BODY_BYTES
@@ -291,6 +315,7 @@ def create_app(
                 "status": "ok",
                 "pipeline": "frozen-voice-rag",
                 "checks": request.app.state.environment,
+                "tts_available": request.app.state.tts is not None,
             }
         )
 
@@ -416,6 +441,57 @@ def create_app(
             raise HTTPException(
                 status_code=500, detail="The request could not be processed"
             ) from None
+
+    @app.post("/api/tts")
+    async def synthesize_speech(
+        request: Request,
+        x_request_id: str | None = Header(default=None),
+    ) -> Response:
+        """Read a grounded answer aloud with Gnani Timbre. Not part of the RAG latency budget."""
+        request_id = _validated_request_id(x_request_id)
+        _require_api_token(request, configured_settings.api_token)
+        tts = request.app.state.tts
+        if tts is None:
+            raise HTTPException(status_code=503, detail="Text-to-speech is not configured")
+        try:
+            payload = await request.json()
+        except (json.JSONDecodeError, UnicodeDecodeError):
+            raise HTTPException(status_code=400, detail="Request body must be valid JSON") from None
+        if not isinstance(payload, dict) or not isinstance(payload.get("text"), str):
+            raise HTTPException(status_code=422, detail="Text must be a string")
+        text = payload["text"].strip()
+        if not text:
+            raise HTTPException(status_code=422, detail="Text must not be empty")
+        if len(text) > MAX_TTS_CHARS:
+            raise HTTPException(
+                status_code=422,
+                detail=f"Text must be {MAX_TTS_CHARS:,} characters or fewer",
+            )
+        language_code = _validated_language_code(payload.get("language_code", "hi-IN"))
+        async with tts_slots:
+            result = await asyncio.to_thread(tts.synthesize, text, language_code=language_code)
+        if getattr(result, "status", "error") != "ok":
+            error_code = getattr(result, "error_code", None) or "tts_error"
+            LOGGER.warning(
+                "Text-to-speech failed: %s", error_code, extra={"request_id": request_id}
+            )
+            status_code = 422 if error_code in {"unsupported_language", "text_too_long"} else 502
+            return JSONResponse(
+                status_code=status_code,
+                content={"detail": "Text-to-speech failed", "error_code": error_code},
+                headers={"X-Request-ID": request_id},
+            )
+        return Response(
+            content=result.audio,
+            media_type=result.mime_type,
+            headers={
+                "X-Request-ID": request_id,
+                "X-TTS-Provider": str(result.provider),
+                "X-TTS-Model": str(result.model),
+                "X-TTS-Latency-Ms": f"{result.latency_ms:.1f}",
+                "Cache-Control": "no-store",
+            },
+        )
 
     app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
     return app

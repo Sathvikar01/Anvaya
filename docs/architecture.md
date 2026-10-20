@@ -7,7 +7,7 @@ Browser microphone or upload
   → browser resampling and PCM16 WAV encoding (16 kHz, mono)
   → POST /api/query/audio
   → VoiceRAGHarness.handle_audio
-      → Sarvam Saaras v3 STT
+      → Gnani Prisma STT (gnani-vachana), Sarvam Saaras v3 fallback
       → transcript validation and deterministic safety/topic routing
       → BGE-M3 query embedding
       → FAISS HNSW parent retrieval, Top-10
@@ -16,6 +16,7 @@ Browser microphone or upload
       → citation/schema grounding validation
   → structured GuardrailResponse
   → transcript, route, answer/refusal, evidence, citations, measured timings
+  → optional: POST /api/tts → Gnani Timbre (timbre-v2.5) reads the answer aloud
 ```
 
 The API route owns transport concerns only: bounded temporary upload storage, exact WAV validation,
@@ -26,7 +27,8 @@ inside `VoiceRAGHarness` and its frozen components.
 
 | Component | Selection |
 | --- | --- |
-| STT | Sarvam Saaras v3, `transcribe` |
+| STT | Gnani Prisma v2.5 REST (`HH_RAG_STT_PROVIDER=gnani`), Sarvam Saaras v3 `transcribe` as fallback |
+| TTS | Gnani Timbre `timbre-v2.5` (optional Listen button; outside the RAG latency budget) |
 | Audio contract | 16 kHz, mono, PCM16 WAV |
 | Retriever | `BAAI/bge-m3` |
 | Chunking | fixed words, maximum 128 words |
